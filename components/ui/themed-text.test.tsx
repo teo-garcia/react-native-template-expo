@@ -8,7 +8,7 @@ describe('ThemedText', () => {
   })
 
   it('renders title type with correct role', () => {
-    render(<ThemedText type="title">Page Title</ThemedText>)
+    render(<ThemedText type='title'>Page Title</ThemedText>)
     expect(screen.getByText('Page Title')).toBeTruthy()
   })
 })

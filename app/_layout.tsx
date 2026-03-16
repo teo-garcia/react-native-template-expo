@@ -21,10 +21,10 @@ export default function RootLayout() {
     <GestureHandlerRootView style={styles.root}>
       <QueryClientProvider client={queryClient}>
         <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
+          <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+          <Stack.Screen name='+not-found' />
         </Stack>
-        <StatusBar style="auto" />
+        <StatusBar style='auto' />
       </QueryClientProvider>
     </GestureHandlerRootView>
   )

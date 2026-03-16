@@ -10,7 +10,7 @@ export default function TabBarBackground() {
   if (Platform.OS === 'ios') {
     return (
       <BlurView
-        tint="systemChromeMaterial"
+        tint='systemChromeMaterial'
         intensity={80}
         style={StyleSheet.absoluteFill}
       />
