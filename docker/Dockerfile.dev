@@ -1,0 +1,14 @@
+# syntax=docker/dockerfile:1
+
+# ─── Development: Metro bundler (web target) ─────────────────────────────────
+# NOTE: This container runs Metro for the Expo web target only.
+# For native iOS/Android development, use your local machine with
+# Xcode / Android Studio as simulators require direct hardware access.
+FROM node:24-alpine AS dev
+RUN corepack enable && corepack prepare pnpm@10.2.0 --activate
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
+COPY . .
+EXPOSE ${PORT:-8081}
+CMD ["pnpm", "dev:web"]
