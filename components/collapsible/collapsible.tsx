@@ -1,9 +1,9 @@
+import { ChevronRight } from 'lucide-react-native'
 import { PropsWithChildren, useState } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 
-import { IconSymbol } from '~/components/ui/icon-symbol'
-import { ThemedText } from '~/components/ui/themed-text'
-import { ThemedView } from '~/components/ui/themed-view'
+import { ThemedText } from '~/components/themed-text/themed-text'
+import { ThemedView } from '~/components/themed-view/themed-view'
 import { Colors } from '~/lib/constants/colors'
 import { useColorScheme } from '~/lib/hooks/use-color-scheme'
 
@@ -23,10 +23,8 @@ export function Collapsible({
         accessibilityRole='button'
         accessibilityState={{ expanded: isOpen }}
       >
-        <IconSymbol
-          name='chevron.right'
+        <ChevronRight
           size={18}
-          weight='medium'
           color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
           style={{ transform: [{ rotate: isOpen ? '90deg' : '0deg' }] }}
         />

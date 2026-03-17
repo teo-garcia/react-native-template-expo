@@ -1,6 +1,6 @@
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
-import { ThemedText } from '~/components/ui/themed-text'
+import { ThemedText } from '~/components/themed-text/themed-text'
 import { useHealth } from '~/features/health/use-health'
 
 const STATUS_COLOR: Record<string, string> = {

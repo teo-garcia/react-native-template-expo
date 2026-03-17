@@ -20,16 +20,16 @@ ecosystem
 
 ## Features
 
-| Category         | Technologies                                                       |
-| ---------------- | ------------------------------------------------------------------ |
-| **Framework**    | Expo SDK 55 · React Native 0.83 · New Architecture only            |
-| **Navigation**   | Expo Router v4 with file-based routing                             |
-| **UI**           | React 19.2 · NativeWind v4 (Tailwind) · SF Symbols / MaterialIcons |
-| **Data**         | TanStack Query v5 for server state                                 |
-| **Type Safety**  | TypeScript strict mode                                             |
-| **Testing**      | Jest + jest-expo + Testing Library for React Native                |
-| **Code Quality** | ESLint, Prettier, Husky, lint-staged, commitlint                   |
-| **CI**           | GitHub Actions — lint, typecheck, test, security audit             |
+| Category         | Technologies                                                |
+| ---------------- | ----------------------------------------------------------- |
+| **Framework**    | Expo SDK 55 · React Native 0.83 · New Architecture only     |
+| **Navigation**   | Expo Router v4 with file-based routing                      |
+| **UI**           | React 19.2 · NativeWind v4 (Tailwind) · Lucide React Native |
+| **Data**         | TanStack Query v5 for server state                          |
+| **Type Safety**  | TypeScript strict mode                                      |
+| **Testing**      | Jest + jest-expo + Testing Library for React Native         |
+| **Code Quality** | ESLint, Prettier, Husky, lint-staged, commitlint            |
+| **CI**           | GitHub Actions — lint, typecheck, test, security audit      |
 
 ## Requirements
 
@@ -42,25 +42,16 @@ ecosystem
 ## Quick Start
 
 ```bash
-# Clone the template
 npx degit teo-garcia/react-native-template-expo my-app
 cd my-app
-
-# Copy env and install
 cp .env.example .env
 pnpm install
-
-# Start Metro bundler
 pnpm dev
 ```
 
 Press `i` for iOS simulator, `a` for Android emulator, or `w` for web.
 
 ## Environment Setup
-
-```bash
-cp .env.example .env
-```
 
 | Variable                   | Description                     | Default                 |
 | -------------------------- | ------------------------------- | ----------------------- |
@@ -69,26 +60,86 @@ cp .env.example .env
 
 All `EXPO_PUBLIC_*` variables are inlined at build time by Metro.
 
+## Theme
+
+Dark and light mode sync automatically with the device system setting — no
+toggle needed. `useColorScheme()` is reactive: when the user switches in phone
+settings, all themed components update instantly.
+
+Use `ThemedView` and `ThemedText` (or `useThemeColor` directly) in your screens
+and theming is handled for you. Avoid hardcoding hex values in components that
+need to respond to the theme.
+
 ## Project Structure
 
 ```
 app/
-├── (tabs)/             # Tab navigation group (Expo Router)
-│   ├── _layout.tsx     # Tab bar configuration
-│   ├── index.tsx       # Home tab
-│   └── explore.tsx     # Explore tab
-├── _layout.tsx         # Root layout (providers)
-└── +not-found.tsx      # 404 screen
+├── _layout.tsx                # Root layout (providers, Stack navigator)
+├── index.tsx                  # Home screen
+└── +not-found.tsx             # 404 screen
 components/
-└── ui/                 # Shared UI primitives
+├── collapsible/               # Collapsible section
+├── external-link/             # Cross-platform external link
+├── haptic-tab/                # Tab button with haptic feedback
+├── parallax-scroll-view/      # Reanimated parallax header scroll
+├── tab-bar-background/        # Native blur / solid tab bar fill
+├── themed-text/               # Theme-aware Text
+└── themed-view/               # Theme-aware View
+                               # Each folder: component.tsx + component.test.tsx
 features/
-└── health/             # Health check feature (example)
+└── health/                    # TanStack Query example (health check)
 lib/
-├── api/                # API client + TanStack Query setup
-├── constants/          # Colors, theme tokens
-├── hooks/              # Shared hooks (useColorScheme, useThemeColor)
-└── test/               # Test utilities and custom render
+├── api/                       # API client + query client setup
+├── constants/                 # Colors and theme tokens
+├── hooks/                     # useColorScheme, useThemeColor
+└── test/                      # Custom render with providers
 ```
+
+## Adding Tab Navigation
+
+The template ships with a single screen. To add tabs:
+
+1. Create `app/(tabs)/` and move `app/index.tsx` → `app/(tabs)/index.tsx`
+2. Add `app/(tabs)/_layout.tsx`:
+
+```tsx
+import { Tabs } from 'expo-router'
+import { Home } from 'lucide-react-native'
+import { Platform } from 'react-native'
+import { HapticTab } from '~/components/haptic-tab/haptic-tab'
+import TabBarBackground from '~/components/tab-bar-background/tab-bar-background'
+import { Colors } from '~/lib/constants/colors'
+import { useColorScheme } from '~/lib/hooks/use-color-scheme'
+
+export default function TabLayout() {
+  const scheme = useColorScheme()
+  return (
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: Colors[scheme].tint,
+        tabBarButton: HapticTab,
+        tabBarBackground: TabBarBackground,
+        tabBarStyle: Platform.select({
+          ios: { position: 'absolute' },
+          default: {},
+        }),
+      }}
+    >
+      <Tabs.Screen
+        name='index'
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color }) => <Home size={28} color={color} />,
+        }}
+      />
+    </Tabs>
+  )
+}
+```
+
+3. In `app/_layout.tsx`, replace `<Stack.Screen name='index' />` with
+   `<Stack.Screen name='(tabs)' options={{ headerShown: false }} />`
 
 ## Scripts
 
@@ -137,8 +188,6 @@ pnpm build:ios      # or pnpm build:android
 ```
 
 ## Shared Configs
-
-This template uses standardized configurations from the ecosystem:
 
 - [`@teo-garcia/eslint-config-shared`](https://github.com/teo-garcia/eslint-config-shared)
   — ESLint rules (base + react-native)
