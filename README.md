@@ -24,7 +24,7 @@ ecosystem
 | ---------------- | ----------------------------------------------------------- |
 | **Framework**    | Expo SDK 55 · React Native 0.83 · New Architecture only     |
 | **Navigation**   | Expo Router v4 with file-based routing                      |
-| **UI**           | React 19.2 · NativeWind v4 (Tailwind) · Lucide React Native |
+| **UI**           | React 19.2 · NativeWind v5 (Tailwind) · Lucide React Native |
 | **Data**         | TanStack Query v5 for server state                          |
 | **Type Safety**  | TypeScript strict mode                                      |
 | **Testing**      | Jest + jest-expo + Testing Library for React Native         |

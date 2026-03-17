@@ -1,6 +1,5 @@
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, Text, View } from 'react-native'
 
-import { ThemedText } from '~/components/themed-text/themed-text'
 import { useHealth } from '~/features/health/use-health'
 
 const STATUS_COLOR: Record<string, string> = {
@@ -14,48 +13,32 @@ export function HealthStatus() {
 
   if (isLoading) {
     return (
-      <View style={styles.container}>
+      <View className='flex-row items-center gap-2 mt-2'>
         <ActivityIndicator size='small' />
-        <ThemedText style={styles.label}>Checking API…</ThemedText>
+        <Text className='text-foreground opacity-80'>Checking API…</Text>
       </View>
     )
   }
 
   if (isError || !data) {
     return (
-      <View style={styles.container}>
-        <View style={[styles.dot, { backgroundColor: STATUS_COLOR['down'] }]} />
-        <ThemedText style={styles.label}>API unreachable</ThemedText>
+      <View className='flex-row items-center gap-2 mt-2'>
+        <View
+          className='w-[10px] h-[10px] rounded-full'
+          style={{ backgroundColor: STATUS_COLOR['down'] }}
+        />
+        <Text className='text-foreground opacity-80'>API unreachable</Text>
       </View>
     )
   }
 
   return (
-    <View style={styles.container}>
+    <View className='flex-row items-center gap-2 mt-2'>
       <View
-        style={[
-          styles.dot,
-          { backgroundColor: STATUS_COLOR[data.status] ?? '#687076' },
-        ]}
+        className='w-[10px] h-[10px] rounded-full'
+        style={{ backgroundColor: STATUS_COLOR[data.status] ?? '#687076' }}
       />
-      <ThemedText style={styles.label}>API {data.status}</ThemedText>
+      <Text className='text-foreground opacity-80'>API {data.status}</Text>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginTop: 8,
-  },
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-  },
-  label: {
-    opacity: 0.8,
-  },
-})

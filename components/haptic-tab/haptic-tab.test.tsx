@@ -4,6 +4,6 @@ import { HapticTab } from './haptic-tab'
 
 describe('HapticTab', () => {
   it('renders without crashing', () => {
-    render(<HapticTab onPress={() => {}} />)
+    render(<HapticTab onPress={() => {}}>Tab</HapticTab>)
   })
 })

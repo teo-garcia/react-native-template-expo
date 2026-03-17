@@ -1,3 +1,43 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@import "nativewind/theme";
+
+@theme {
+  --color-foreground: #1c1c1c;
+  --color-background: #ffffff;
+  --color-tint: #0a7ea4;
+  --color-icon: #787878;
+  --color-surface: #ffffff;
+  --color-border: #e8e8e8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-foreground: #fafafa;
+    --color-background: #0d0d0d;
+    --color-tint: #38bdf8;
+    --color-icon: #787878;
+    --color-surface: #1a1a1a;
+    --color-border: #3d3d3d;
+  }
+}
+
+@layer components {
+  .text-default {
+    @apply text-base leading-6;
+  }
+  .text-default-semibold {
+    @apply text-base leading-6 font-semibold;
+  }
+  .text-title {
+    @apply text-[32px] font-bold leading-10;
+  }
+  .text-subtitle {
+    @apply text-xl font-semibold;
+  }
+  .text-link {
+    @apply text-base leading-[30px];
+  }
+}

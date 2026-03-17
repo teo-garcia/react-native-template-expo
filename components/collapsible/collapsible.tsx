@@ -1,9 +1,7 @@
 import { ChevronRight } from 'lucide-react-native'
 import { PropsWithChildren, useState } from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 
-import { ThemedText } from '~/components/themed-text/themed-text'
-import { ThemedView } from '~/components/themed-view/themed-view'
 import { Colors } from '~/lib/constants/colors'
 import { useColorScheme } from '~/lib/hooks/use-color-scheme'
 
@@ -15,9 +13,9 @@ export function Collapsible({
   const theme = useColorScheme()
 
   return (
-    <ThemedView>
+    <View>
       <TouchableOpacity
-        style={styles.heading}
+        className='flex-row items-center gap-[6px]'
         onPress={() => setIsOpen((value) => !value)}
         activeOpacity={0.8}
         accessibilityRole='button'
@@ -25,24 +23,12 @@ export function Collapsible({
       >
         <ChevronRight
           size={18}
-          color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
+          color={Colors[theme].icon}
           style={{ transform: [{ rotate: isOpen ? '90deg' : '0deg' }] }}
         />
-        <ThemedText type='defaultSemiBold'>{title}</ThemedText>
+        <Text className='text-default-semibold text-foreground'>{title}</Text>
       </TouchableOpacity>
-      {isOpen && <ThemedView style={styles.content}>{children}</ThemedView>}
-    </ThemedView>
+      {isOpen && <View className='mt-[6px] ml-6'>{children}</View>}
+    </View>
   )
 }
-
-const styles = StyleSheet.create({
-  heading: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  content: {
-    marginTop: 6,
-    marginLeft: 24,
-  },
-})

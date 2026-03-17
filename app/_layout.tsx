@@ -5,7 +5,6 @@ import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { useEffect } from 'react'
-import { StyleSheet } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import { queryClient } from '~/lib/api/query-client'
@@ -18,7 +17,7 @@ export default function RootLayout() {
   }, [])
 
   return (
-    <GestureHandlerRootView style={styles.root}>
+    <GestureHandlerRootView className='flex-1'>
       <QueryClientProvider client={queryClient}>
         {/*
          * Theme: automatically syncs with the device system setting (light/dark).
@@ -43,9 +42,3 @@ export default function RootLayout() {
     </GestureHandlerRootView>
   )
 }
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-})
