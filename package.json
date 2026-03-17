@@ -20,6 +20,8 @@
     "lint:es": "eslint . --fix",
     "lint:es:check": "eslint .",
     "lint:ts": "tsc --noEmit",
+    "lint:format": "pnpm format",
+    "lint:format:check": "pnpm format:check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "jest --passWithNoTests",
