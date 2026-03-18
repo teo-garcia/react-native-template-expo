@@ -60,16 +60,6 @@ Press `i` for iOS simulator, `a` for Android emulator, or `w` for web.
 
 All `EXPO_PUBLIC_*` variables are inlined at build time by Metro.
 
-## Theme
-
-Dark and light mode sync automatically with the device system setting — no
-toggle needed. `useColorScheme()` is reactive: when the user switches in phone
-settings, all themed components update instantly.
-
-Use `ThemedView` and `ThemedText` (or `useThemeColor` directly) in your screens
-and theming is handled for you. Avoid hardcoding hex values in components that
-need to respond to the theme.
-
 ## Project Structure
 
 ```
@@ -95,52 +85,6 @@ lib/
 └── test/                      # Custom render with providers
 ```
 
-## Adding Tab Navigation
-
-The template ships with a single screen. To add tabs:
-
-1. Create `app/(tabs)/` and move `app/index.tsx` → `app/(tabs)/index.tsx`
-2. Add `app/(tabs)/_layout.tsx`:
-
-```tsx
-import { Tabs } from 'expo-router'
-import { Home } from 'lucide-react-native'
-import { Platform } from 'react-native'
-import { HapticTab } from '~/components/haptic-tab/haptic-tab'
-import TabBarBackground from '~/components/tab-bar-background/tab-bar-background'
-import { Colors } from '~/lib/constants/colors'
-import { useColorScheme } from '~/lib/hooks/use-color-scheme'
-
-export default function TabLayout() {
-  const scheme = useColorScheme()
-  return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: Colors[scheme].tint,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: { position: 'absolute' },
-          default: {},
-        }),
-      }}
-    >
-      <Tabs.Screen
-        name='index'
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <Home size={28} color={color} />,
-        }}
-      />
-    </Tabs>
-  )
-}
-```
-
-3. In `app/_layout.tsx`, replace `<Stack.Screen name='index' />` with
-   `<Stack.Screen name='(tabs)' options={{ headerShown: false }} />`
-
 ## Scripts
 
 | Command              | Description                                         |
@@ -161,31 +105,6 @@ export default function TabLayout() {
 | `pnpm format`        | Format with Prettier                                |
 | `pnpm format:check`  | Check formatting                                    |
 | `pnpm check`         | Run full pipeline (lint + types + format + test)    |
-| `pnpm docker:dev`    | Start Expo web via Docker Compose                   |
-
-## Docker
-
-Docker targets the **Expo web** output. Native iOS/Android builds require local
-Xcode/Android Studio tooling.
-
-```bash
-# Dev (Metro web via Docker)
-pnpm docker:dev
-
-# Production build (nginx serves static web bundle)
-docker build -f docker/Dockerfile -t rn-expo-app .
-docker run -p 8080:8080 rn-expo-app
-```
-
-## EAS Build (Native)
-
-For production native builds, configure
-[EAS Build](https://docs.expo.dev/build/introduction/):
-
-```bash
-npx eas build:configure
-pnpm build:ios      # or pnpm build:android
-```
 
 ## Shared Configs
 

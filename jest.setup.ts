@@ -1,6 +1,8 @@
-import type { ForwardedRef } from 'react'
-import React from 'react'
-import { Pressable, ScrollView, View } from 'react-native'
+import type { ComponentProps, ComponentRef, ForwardedRef } from 'react'
+
+const mockReact = jest.requireActual<typeof import('react')>('react')
+const mockReactNative =
+  jest.requireActual<typeof import('react-native')>('react-native')
 
 // Provide required env vars before any module that validates them at load time
 process.env['EXPO_PUBLIC_API_BASE_URL'] = 'http://localhost:3000'
@@ -9,8 +11,8 @@ jest.mock('react-native-reanimated', () => {
   return {
     __esModule: true,
     default: {
-      ScrollView,
-      View,
+      ScrollView: mockReactNative.ScrollView,
+      View: mockReactNative.View,
       call: () => {},
     },
     interpolate: (_value: number, _input: number[], output: number[]) => {
@@ -24,9 +26,15 @@ jest.mock('react-native-reanimated', () => {
 
 jest.mock('@react-navigation/elements', () => {
   return {
-    PlatformPressable: React.forwardRef(
-      (props: Record<string, unknown>, ref: ForwardedRef<typeof Pressable>) => {
-        return React.createElement(Pressable, { ...props, ref })
+    PlatformPressable: mockReact.forwardRef(
+      (
+        props: ComponentProps<typeof mockReactNative.Pressable>,
+        ref: ForwardedRef<ComponentRef<typeof mockReactNative.Pressable>>
+      ) => {
+        return mockReact.createElement(mockReactNative.Pressable, {
+          ...props,
+          ref,
+        })
       }
     ),
   }
