@@ -3,18 +3,26 @@
   "extends": ["config:recommended"],
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackagePatterns": ["@teo-garcia/*"],
-      "automerge": false
+      "groupName": "teo-garcia shared configs",
+      "schedule": ["every weekend"],
+      "automerge": false,
+      "reviewers": ["teo-garcia"],
+      "matchPackageNames": ["/^@teo-garcia//"]
     },
     {
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackagePatterns": ["*"],
-      "automerge": true
+      "groupName": "expo and react-native",
+      "schedule": ["every weekend"],
+      "automerge": false,
+      "matchPackagePatterns": ["expo", "expo-*", "react-native"]
     },
     {
-      "matchPackagePatterns": ["expo", "expo-*", "react-native"],
-      "automerge": false
+      "groupName": "all dependencies",
+      "schedule": ["every 2 months"],
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["/.*/", "!/^@teo-garcia//"]
     }
-  ]
+  ],
+  "dependencyDashboard": true,
+  "labels": ["dependencies"]
 }
