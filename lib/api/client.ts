@@ -1,23 +1,12 @@
-import Constants from 'expo-constants'
-import { z } from 'zod'
+import { env } from '~/lib/env'
 
-const envSchema = z.object({
-  EXPO_PUBLIC_API_BASE_URL: z.url(),
-})
-
-const env = envSchema.parse({
-  EXPO_PUBLIC_API_BASE_URL:
-    Constants.expoConfig?.extra?.['EXPO_PUBLIC_API_BASE_URL'] ??
-    process.env['EXPO_PUBLIC_API_BASE_URL'],
-})
-
-export const API_BASE_URL = env.EXPO_PUBLIC_API_BASE_URL
+export const API_BASE_URL = env.apiBaseUrl
 
 export async function apiRequest<T>(
   path: string,
   options?: RequestInit
 ): Promise<T> {
-  const url = `${API_BASE_URL}${path}`
+  const url = new URL(path, API_BASE_URL).toString()
 
   const response = await fetch(url, {
     headers: {

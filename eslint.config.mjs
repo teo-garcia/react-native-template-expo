@@ -15,7 +15,6 @@ export default [
       // cannot use ESM here regardless of the unicorn/prefer-module rule.
       'babel.config.js',
       'metro.config.js',
-      'tailwind.config.js',
     ],
   },
 ]

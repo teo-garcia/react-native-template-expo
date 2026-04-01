@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar'
 import { useEffect } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
-import { queryClient } from '~/lib/api/query-client'
+import { queryClient } from '~/lib/query-client'
 
 SplashScreen.preventAutoHideAsync()
 
