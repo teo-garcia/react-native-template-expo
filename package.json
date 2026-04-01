@@ -69,7 +69,7 @@
     "@eslint/js": "^10.0.0",
     "@tailwindcss/postcss": "^4.1.0",
     "@teo-garcia/eslint-config-shared": "^0.4.0",
-    "@teo-garcia/prettier-config-shared": "^0.2.8",
+    "@teo-garcia/prettier-config-shared": "^0.2.9",
     "@teo-garcia/tsconfig-shared": "^0.2.0",
     "@testing-library/react-native": "^13.2.0",
     "@types/jest": "^29.5.14",
