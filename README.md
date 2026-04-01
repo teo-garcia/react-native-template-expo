@@ -45,9 +45,13 @@ ecosystem
 
 ## Quick Start
 
-Clone the template, install dependencies, copy `.env.example` to `.env`, and run
-the dev server. Press `i` for iOS simulator, `a` for Android emulator, or `w`
-for web.
+```bash
+pnpm install
+cp .env.example .env
+pnpm dev
+```
+
+Press `i` for iOS simulator, `a` for Android emulator, or `w` for web.
 
 ---
 
@@ -89,6 +93,18 @@ for web.
 | `features/`   | Feature modules              |
 | `lib/`        | API client, hooks, constants |
 | `assets/`     | Images and fonts             |
+
+---
+
+## Shared Governance
+
+| Area               | Tooling                                             |
+| ------------------ | --------------------------------------------------- |
+| Dependency updates | Renovate                                            |
+| Issue intake       | GitHub issue templates                              |
+| Change review      | Pull request template                               |
+| CI                 | GitHub Actions for lint, typecheck, test, and audit |
+| Security           | Trivy and `pnpm audit`                              |
 
 ---
 
