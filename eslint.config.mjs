@@ -1,7 +1,8 @@
+import { defineConfig } from 'eslint/config'
 import shared from '@teo-garcia/eslint-config-shared'
 import sharedReactNative from '@teo-garcia/eslint-config-shared/react-native'
 
-export default [
+export default defineConfig([
   ...shared,
   ...sharedReactNative,
   {
@@ -17,4 +18,4 @@ export default [
       'metro.config.js',
     ],
   },
-]
+])
