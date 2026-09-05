@@ -37,7 +37,7 @@ ecosystem
 
 - Node.js 24+
 - pnpm 11+
-- Expo CLI
+- Expo account for cloud builds
 - For iOS: Xcode 16+ (macOS only)
 - For Android: Android Studio + JDK 17+
 
@@ -53,6 +53,21 @@ pnpm dev
 
 Press `i` for iOS simulator, `a` for Android emulator, or `w` for web.
 
+### Native preview builds
+
+Link each new project to the Expo account that will own its builds, then create
+an installable preview:
+
+```bash
+pnpm dlx eas-cli@23.2.0 login
+pnpm dlx eas-cli@23.2.0 init
+pnpm dlx eas-cli@23.2.0 build --platform android --profile preview
+```
+
+Use `--platform ios` for an iOS preview. `eas init` adds the owner and project
+ID for your Expo project; the template does not ship another account's linkage
+or signing credentials.
+
 ---
 
 ## Environment Variables
@@ -65,21 +80,22 @@ Press `i` for iOS simulator, `a` for Android emulator, or `w` for web.
 
 ## Scripts
 
-| Command              | Description                                      |
-| -------------------- | ------------------------------------------------ |
-| `pnpm dev`           | Start Metro bundler                              |
-| `pnpm dev:ios`       | Start and open iOS simulator                     |
-| `pnpm dev:android`   | Start and open Android emulator                  |
-| `pnpm dev:web`       | Start Expo web                                   |
-| `pnpm build`         | Export Expo web bundle                           |
-| `pnpm build:ios`     | EAS Build for iOS                                |
-| `pnpm build:android` | EAS Build for Android                            |
-| `pnpm test`          | Run Jest tests                                   |
-| `pnpm coverage`      | Run Jest with coverage                           |
-| `pnpm check`         | Run full pipeline (lint + types + format + test) |
-| `pnpm lint:es`       | Lint and fix with ESLint                         |
-| `pnpm lint:ts`       | TypeScript type check                            |
-| `pnpm format`        | Format with Prettier                             |
+| Command              | Description                                   |
+| -------------------- | --------------------------------------------- |
+| `pnpm dev`           | Start Metro bundler                           |
+| `pnpm dev:ios`       | Start and open iOS simulator                  |
+| `pnpm dev:android`   | Start and open Android emulator               |
+| `pnpm dev:web`       | Start Expo web                                |
+| `pnpm build`         | Export Expo web bundle                        |
+| `pnpm build:ios`     | EAS Build for iOS                             |
+| `pnpm build:android` | EAS Build for Android                         |
+| `pnpm doctor`        | Validate Expo config and native dependencies  |
+| `pnpm test`          | Run Jest tests                                |
+| `pnpm coverage`      | Run Jest with coverage                        |
+| `pnpm check`         | Run Expo, lint, type, format, and test checks |
+| `pnpm lint:es`       | Lint and fix with ESLint                      |
+| `pnpm lint:ts`       | TypeScript type check                         |
+| `pnpm format`        | Format with Prettier                          |
 
 ---
 
